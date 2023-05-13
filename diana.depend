@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1683961644 source:c:\users\zaytona\desktop\2021\c programming\diana\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
