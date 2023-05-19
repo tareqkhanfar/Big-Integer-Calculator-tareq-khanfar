@@ -134,14 +134,14 @@ struct LinkedList* subtractToList(struct LinkedList* list1, struct LinkedList* l
         list2->isNegative = !list2->isNegative;
     }
 
-    struct Node* p1 = list1->tail;
-    struct Node* p2 = list2->tail;
+    struct Node* pointerOne = list1->tail;
+    struct Node* pointerTwo = list2->tail;
     int borrow = 0;
 
-    while (p1 != NULL && p2 != NULL)
+    while (pointerOne != NULL && pointerTwo != NULL)
     {
-        int data1 = p1->data;
-        int data2 = p2->data;
+        int data1 = pointerOne->data;
+        int data2 = pointerTwo->data;
 
         int different = data1 - data2 - borrow;
 
@@ -156,14 +156,14 @@ struct LinkedList* subtractToList(struct LinkedList* list1, struct LinkedList* l
         }
         addFirst(result, different);
 
-        p1 = p1->prev;
-        p2 = p2->prev;
+        pointerOne = pointerOne->prev;
+        pointerTwo = pointerTwo->prev;
     }
 
     // Copy the remaining digits from list1 to the result
-    while (p1 != NULL)
+    while (pointerOne != NULL)
     {
-        int diff = p1->data - borrow;
+        int diff = pointerOne->data - borrow;
 
         if (diff < 0)
         {
@@ -177,7 +177,7 @@ struct LinkedList* subtractToList(struct LinkedList* list1, struct LinkedList* l
 
         addFirst(result, diff);
 
-        p1 = p1->prev;
+        pointerOne = pointerOne->prev;
     }
 
     removeLeadingZeros(result);
@@ -582,16 +582,22 @@ int is_greater(struct LinkedList* list1, struct LinkedList* list2)
 
         }
 
-        printf("%d\n" , index);
     }
-*list1 = list[0] ;
-*list2 = list[1];
-  for (int i = 0; i <= index-1; i++)
-    {
-        printf("Linked List %d: ", i);
-        printList(list[i]);
-        printf("\n");
+
+
+    printf ("All numbers From File -- PLZ SELECT TWO LIST BY NUMBERS : \n") ;
+    for (int i = 0 ; i < index ; i++) {
+        printf("List %d : " , i) ;
+        printList(list[index]);
+        printf("\n___________________________________________________\n");
     }
+    int x , y ;
+    printf ("Your Choice n1 n2 : ");
+    scanf("%d %d" , &x , &y);
+
+*list1 = list[x] ;
+*list2 = list[y];
+
 
     fclose(file);
 }
@@ -600,80 +606,93 @@ int is_greater(struct LinkedList* list1, struct LinkedList* list2)
 
 void ControllerAddition (struct LinkedList* list1 ,struct LinkedList* list2) {
 
+struct LinkedList* result ;
 if (list1->isNegative == 0 && list2->isNegative == 0) {
-        struct LinkedList* result = AddToList (list1 , list2 );
+        result = AddToList (list1 , list2 );
+  printf("test1");
 
 
     // addition
 }
-else if ((list1->isNegative = 1 && list2->isNegative == 0 )|| (list1->isNegative = 0 && list2->isNegative == 1) ) {
+else if ((list1->isNegative == 1 && list2->isNegative == 0)|| (list1->isNegative == 0 && list2->isNegative == 1) ) {
 struct    LinkedList* max = getGreaterList (list1 , list2) ;
  struct   LinkedList* min = getSmallerList (list1 , list2) ;
-  struct LinkedList* result =  subtractToList(max , min) ;
+  result =  subtractToList(max , min) ;
+    printf("test2");
+
    result->isNegative = max->isNegative ;
 }
-else if (list1->isNegative = 1 && list2->isNegative == 1){
+else if (list1->isNegative == 1 && list2->isNegative == 1){
 
-struct LinkedList* result = AddToList(list1 , list2) ;
+ result = AddToList(list1 , list2) ;
 result->isNegative = list1->isNegative ;
+  printf("test3");
 
 }
+printf("Addition Result : ");
+printList(result);
 
 
 }
 
 void ControllerSubtraction (struct LinkedList* list1 , struct LinkedList* list2) {
-
+  struct LinkedList* result ;
 if (list1->isNegative == 0 && list2->isNegative == 0){ // + +
 struct LinkedList* max = getGreaterList (list1 , list2) ;
  struct LinkedList* min = getSmallerList (list1 , list2) ;
-  struct LinkedList* result =  subtractToList(max , min) ;
+ result =  subtractToList(max , min) ;
    result->isNegative = max->isNegative ;
 }
 else if (list1->isNegative == 1 && list2 ->isNegative == 0) { // - +
-  struct LinkedList* result = AddToList(list1 , list2) ;
+   result = AddToList(list1 , list2) ;
 result->isNegative = list1->isNegative ;
 }
 else if (list1->isNegative == 1 && list2->isNegative ==1){ // - -
     struct    LinkedList* max = getGreaterList (list1 , list2) ;
  struct   LinkedList* min = getSmallerList (list1 , list2) ;
-  struct LinkedList* result =  subtractToList(max , min) ;
-   result->isNegative = max->isNegative ;
+
+ result =  subtractToList(max , min) ;
+   result->isNegative = !(max->isNegative) ;
 }
 else if (list1->isNegative==0 && list2->isNegative == 1) {
- struct LinkedList* result = AddToList (list1 , list2 );
+ result = AddToList (list1 , list2 );
 
 }
-
+printf("Subtraction Result : ");
+printList(result);
 
 }
 
 void ControllerMultiblication (struct LinkedList* list1 , struct LinkedList* list2) {
-
+ struct LinkedList* result ;
 if ((list1->isNegative == 0 && list2->isNegative == 0)||(list1->isNegative == 1 && list2->isNegative == 1)) {
-    struct LinkedList* result = MultiblyToList(list1 , list2);
+   result = MultiblyToList(list1 , list2);
 
 }
 else if ((list1->isNegative == 1 && list2 ->isNegative == 0) || (list1->isNegative == 0 && list2 ->isNegative == 1)) {
-          struct LinkedList* result = MultiblyToList(list1 , list2);
+           result = MultiblyToList(list1 , list2);
           result->isNegative = 1 ;
 
 }
+printf("Multiblication Result : ");
+printList(result);
 
 
 }
 
 void ControllerDivision (struct LinkedList* list1 , struct LinkedList* list2) {
-
+struct LinkedList* result ;
 if ((list1->isNegative == 0 && list2->isNegative == 0)||(list1->isNegative == 1 && list2->isNegative == 1)) {
-    struct LinkedList* result = devideToList(list1 , list2);
+     result = devideToList(list1 , list2);
 
 }
 else if ((list1->isNegative == 1 && list2 ->isNegative == 0) || (list1->isNegative == 0 && list2 ->isNegative == 1)) {
-          struct LinkedList* result = devideToList(list1 , list2);
+           result = devideToList(list1 , list2);
           result->isNegative = 1 ;
 
 }
+printf("Devision  Result : ");
+printList(result);
 
 }
 
@@ -732,16 +751,13 @@ struct LinkedList* getSmallerList(struct LinkedList* list1, struct LinkedList* l
     return list1;
 }
 
-
 int main()
 {
+
     struct LinkedList* list1 = createLinkedList() ;
 
       struct LinkedList* list2 = createLinkedList();
-     readDataFromFile("num1.txt" , &list1 , &list2);
-
-     printList(list1) ;
-     printList(list2);
+     readDataFromFile("num.txt" , &list1 , &list2);
 
 
     printf ("First Number From File : ") ;
@@ -753,7 +769,6 @@ int main()
     printList(list2);
 printf ("\n##################################################################################################\n") ;
 
-// Add numbers to the linked lists
 
     int choice;
 
@@ -765,7 +780,10 @@ printf ("\n#####################################################################
         printf("2- Subtraction\n");
         printf("3- Multiplication\n");
         printf("4- Division\n");
-        printf("5- Exit\n");
+        printf("5- Select Other Two Numbers \n");
+
+        printf("6- Exit\n");
+
 
         printf("Enter your choice: ");
         scanf("%d", &choice);
@@ -774,33 +792,50 @@ printf ("\n#####################################################################
         {
         case 1:
         {
-            struct LinkedList* addition = AddToList(list1, list2);
-            printf("Addition Result: ");
-            printList(addition);
+             ControllerAddition(list1, list2);
+
             break;
         }
         case 2:
         {
-            struct LinkedList* subtraction = subtractToList(list1, list2);
-            printf("Subtraction Result: ");
-            printList(subtraction);
+             ControllerSubtraction(list1, list2);
+
             break;
         }
         case 3:
         {
-            struct LinkedList* multiplication = MultiblyToList(list1, list2);
-            printf("Multiplication Result: ");
-            printList(multiplication);
+           ControllerMultiblication(list1, list2);
+
             break;
         }
         case 4:
         {
-            struct LinkedList* division = devideToList(list1, list2);
-            printf("Division Result: ");
-            printList(division);
+            ControllerDivision(list1, list2);
+
             break;
         }
         case 5:
+        {
+                struct LinkedList* list1 = createLinkedList() ;
+
+      struct LinkedList* list2 = createLinkedList();
+     readDataFromFile("num.txt" , &list1 , &list2);
+
+
+    printf ("First Number From File : ") ;
+    printList(list1);
+        printf ("\n#######################################################################################\n") ;
+
+    printf ("Second Number From File : ") ;
+
+    printList(list2);
+printf ("\n##################################################################################################\n") ;
+
+
+
+            break;
+        }
+        case 6:
         {
             printf("Exiting the program.\n");
             break;
@@ -812,7 +847,7 @@ printf ("\n#####################################################################
         }
         }
     }
-    while (choice != 5);
+    while (choice != 6);
 
     return 0;
 }
